@@ -40,7 +40,96 @@ final class APICaller {
             task.resume()
         }
     }
-    
+    /// Function to return all the new releases
+    public func getAllNewReleases(completion: @escaping ((Result<NewReleaseResponse,Error>)->Void)){
+        // Create Request
+        createRequest(with: URL(string: Constants.baseAPIURL + "/browse/new-releases?limit=50"),
+                      type: .GET) { request in
+            let task = URLSession.shared.dataTask(with: request) { (data, _, error) in
+                guard let data = data, error == nil else{
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                //Do Catch block to get JSON data
+                do{
+                    let result = try JSONDecoder().decode(NewReleaseResponse.self, from: data)
+                    completion(.success(result))
+                }
+                catch{
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                }
+            }
+            task.resume()
+        }
+    }
+    ///Function to get Featured Playlists
+    public func getFeaturedPlaylists(completion: @escaping ((Result<FeaturedPlaylistResponse,Error>)-> Void)){
+        createRequest(with: URL(string: Constants.baseAPIURL + "/browse/featured-playlists"), type: .GET) { request in
+            let task = URLSession.shared.dataTask(with: request) { (data, _, error) in
+                guard let data = data, error == nil else{
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                //Do-Catch block to get the JSON data from API
+                do{
+                    let result = try JSONDecoder().decode(FeaturedPlaylistResponse.self, from: data)
+                    print(result)
+                    completion(.success(result ))
+                }
+                catch{
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                }
+            }
+            task.resume()
+        }
+    }
+    /// Function to Get Recommendation Genres
+    public func getRecommendationGenres(completion: @escaping ((Result<RecommendationGenresResponse,Error>) -> Void)){
+        createRequest(with: URL(string: Constants.baseAPIURL + "/recommendations/available-genre-seeds"),
+                      type: .GET) { request in
+            let task = URLSession.shared.dataTask(with: request) { (data, _, error) in
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                do{
+                    let result = try JSONDecoder().decode(RecommendationGenresResponse.self, from: data)
+                    completion(.success(result))
+                }
+                catch{
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                }
+            }
+            task.resume()
+        }
+    }
+    /// Function to Get Recommendations
+    public func getRecommendations(genres: Set<String>, completion: @escaping ((Result<RecommendationsResponse,Error>) -> Void)){
+        let seeds = genres.joined(separator: ",")
+        //Create Request call
+        createRequest(with: URL(string: Constants.baseAPIURL + "/recommendations?limit=40&seed_genres=\(seeds)"),
+                      type: .GET) { request in
+            let task = URLSession.shared.dataTask(with: request) { (data, _, error) in
+                guard let data = data, error == nil else{
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                do{
+                    let result = try JSONDecoder().decode(RecommendationsResponse.self, from: data)
+                    print(result)
+                    completion(.success(result))
+                }
+                catch{
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                }
+            }
+            task.resume()
+        }
+    }
     //MARK: - Private
     //Enum: for HTTP Method
     enum HTTPMethod: String {
