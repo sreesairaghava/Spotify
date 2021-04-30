@@ -65,7 +65,7 @@ final class APICaller {
     }
     ///Function to get Featured Playlists
     public func getFeaturedPlaylists(completion: @escaping ((Result<FeaturedPlaylistResponse,Error>)-> Void)){
-        createRequest(with: URL(string: Constants.baseAPIURL + "/browse/featured-playlists"), type: .GET) { request in
+        createRequest(with: URL(string: Constants.baseAPIURL + "/browse/featured-playlists?limit=20"), type: .GET) { request in
             let task = URLSession.shared.dataTask(with: request) { (data, _, error) in
                 guard let data = data, error == nil else{
                     completion(.failure(APIError.failedToGetData))
@@ -74,7 +74,6 @@ final class APICaller {
                 //Do-Catch block to get the JSON data from API
                 do{
                     let result = try JSONDecoder().decode(FeaturedPlaylistResponse.self, from: data)
-                    print(result)
                     completion(.success(result ))
                 }
                 catch{
@@ -119,7 +118,6 @@ final class APICaller {
                 }
                 do{
                     let result = try JSONDecoder().decode(RecommendationsResponse.self, from: data)
-                    print(result)
                     completion(.success(result))
                 }
                 catch{
