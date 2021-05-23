@@ -10,9 +10,12 @@ import Foundation
 struct FeaturedPlaylistResponse: Codable {
     let playlists: PlaylistResponse
 }
-
+// For CategoryPlaylistResponse:: maintablity purpose
+struct CategoryPlaylistsResponse: Codable {
+    let playlists: PlaylistResponse
+}
 struct PlaylistResponse: Codable {
-    let items: [Playlists]
+    let items: [Playlist]
 }
 
 
