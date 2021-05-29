@@ -47,6 +47,7 @@
 		046891A126142C9200DF1179 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046891A026142C9200DF1179 /* HomeViewController.swift */; };
 		046891A626142C9500DF1179 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 046891A526142C9500DF1179 /* Assets.xcassets */; };
 		046891A926142C9500DF1179 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 046891A726142C9500DF1179 /* LaunchScreen.storyboard */; };
+		0472BF9026621CC30019339A /* PlayerControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0472BF8F26621CC30019339A /* PlayerControlsView.swift */; };
 		0497D86A262E751200603D15 /* FeaturedPlaylistResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497D869262E751200603D15 /* FeaturedPlaylistResponse.swift */; };
 		0497D86D262E8D6C00603D15 /* RecommendationGenresResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497D86C262E8D6C00603D15 /* RecommendationGenresResponse.swift */; };
 		0497D870262E956900603D15 /* RecommendationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497D86F262E956900603D15 /* RecommendationsResponse.swift */; };
@@ -109,6 +110,7 @@
 		046891A526142C9500DF1179 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		046891A826142C9500DF1179 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		046891AA26142C9500DF1179 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0472BF8F26621CC30019339A /* PlayerControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlsView.swift; sourceTree = "<group>"; };
 		0497D869262E751200603D15 /* FeaturedPlaylistResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedPlaylistResponse.swift; sourceTree = "<group>"; };
 		0497D86C262E8D6C00603D15 /* RecommendationGenresResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationGenresResponse.swift; sourceTree = "<group>"; };
 		0497D86F262E956900603D15 /* RecommendationsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsResponse.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				04312FCF263D84660071134D /* TitleHeaderCollectionReusableView.swift */,
 				04312FD1263D98CA0071134D /* AlbumTrackCollectionViewCell.swift */,
 				04D3ACB62640CCCF00BF15ED /* CategoryCollectionViewCell.swift */,
+				0472BF8F26621CC30019339A /* PlayerControlsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -466,6 +469,7 @@
 				040896E52619AA2A00905871 /* ProfileViewController.swift in Sources */,
 				04312FC6263CD3CB0071134D /* AlbumViewController.swift in Sources */,
 				04433D3A263E2455006A0E72 /* AlbumCollectionViewCellViewModel.swift in Sources */,
+				0472BF9026621CC30019339A /* PlayerControlsView.swift in Sources */,
 				0442A436262DF53F006CA63A /* NewReleasesResponse.swift in Sources */,
 				046891A126142C9200DF1179 /* HomeViewController.swift in Sources */,
 				04312FCA263CF1D20071134D /* PlaylistDetailsResponse.swift in Sources */,
