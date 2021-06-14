@@ -64,12 +64,61 @@ class HomeViewController: UIViewController {
         view.addSubview(spinner)
         // Call fetchData() on viewDidLoad
         fetchData()
+        // Add LongTap Gesture
+        addLongTapGesture()
         
         
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
+    }
+    //Function: addLongTapGesture
+    private func addLongTapGesture() {
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(didLongPress(_:)))
+        collectionView.isUserInteractionEnabled = true
+        collectionView.addGestureRecognizer(gesture)
+    }
+    //Objc function didLongPress
+    @objc func didLongPress(_ gesture: UILongPressGestureRecognizer){
+        guard gesture.state == .began else {
+            return
+        }
+        let touchPoint = gesture.location(in: collectionView)
+        guard let indexPath = collectionView.indexPathForItem(at: touchPoint), indexPath.section == 2 else {
+            return
+        }
+        let model = tracks[indexPath.row]
+        let actionSheet = UIAlertController(
+            title: model.name,
+            message: "Would you like to add this to a playlist",
+            preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Add to Playlist", style: .default, handler: { _ in
+            DispatchQueue.main.async {
+                let vc = LibraryPlaylistsViewController()
+                vc.selectionHandler = { playlist in
+                    APICaller.shared.addTrackToPlaylist(track: model, playlist: playlist) { success in
+                        DispatchQueue.main.async {
+                            if success{
+                                let alert = UIAlertController(title: "Track added", message: "This track has been added to \(playlist.name)", preferredStyle: .alert)
+                                alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                            else{
+                                let alert = UIAlertController(title: "Failed to add track", message: "Couldn't add this track to \(playlist.name)", preferredStyle: .alert)
+                                alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                           
+                        }
+                    }
+                }
+                vc.title = "Select Playlist"
+                self.present(vc, animated: true, completion: nil)
+            }
+        }))
+        present(actionSheet,animated: true)
     }
     private func configureCollectionView(){
         view.addSubview(collectionView)
@@ -267,6 +316,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        HapticsManager.shared.vibrateForSelection()
         let section = sections[indexPath.section]
         switch section{
         case .featuredPlaylists:

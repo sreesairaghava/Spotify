@@ -12,25 +12,60 @@ class WelcomeViewController: UIViewController {
     private let signInButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .white
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = 6
         button.setTitle("SignIn with Spotify", for: .normal)
         button.setTitleColor(.black, for: .normal)
         return button
         
     }()
-    
+    private let overlayView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        view.alpha = 0.7
+        return view
+    }()
+    private let imageView: UIImageView = {
+       let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.image = UIImage(named: "artwork")
+        return imageView
+    }()
+    private let logoImageView: UIImageView = {
+       let logoImage = UIImageView(image: UIImage(named: "Logo"))
+        logoImage.contentMode = .scaleAspectFit
+        return logoImage
+    }()
+    private let label: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 32, weight: .semibold)
+        label.text = "Spotify Clone\nDeveloped by Raghava Codes"
+        return label
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Spotify"
+        view.addSubview(imageView)
+        view.addSubview(overlayView)
         view.backgroundColor = .systemGreen
         view.addSubview(signInButton)
         signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
+        view.addSubview(label)
+        view.addSubview(logoImageView)
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        imageView.frame = view.bounds
+        overlayView.frame = view.bounds
         signInButton.frame = CGRect(x: 20,
                                     y: view.height-50-view.safeAreaInsets.bottom,
                                     width: view.width-40,
                                     height: 50)
+        logoImageView.frame = CGRect(x: (view.width-120)/2, y: (view.height-200)/2, width: 120, height: 120)
+        label.frame = CGRect(x: 30, y: logoImageView.bottom+30, width: view.width-60, height: 150)
     }
     
     @objc func didTapSignIn(){
