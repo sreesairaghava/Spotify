@@ -1,6 +1,6 @@
 # Spotify [Clone]
 
-Spotify, is a popular music streaming service. Creating a clone of the Spotify using UIKit, Swift 5.3, Cocapods, Spotify official API (using WEB API mostly), SDWebImage, Firebase Analytics through cocapods. More content will be updated soon. This project is under active development. 
+Spotify, is a popular music streaming service. Creating a clone of the Spotify using UIKit, Swift 5.3, Cocapods, Spotify official API (using WEB API mostly), SDWebImage, Firebase Analytics through cocapods. ~~More content will be updated soon. This project is under active development.~~
 ## Installation
 
 If you want to clone the project, you should create a ```Constants.swift ``` file with a struct as mentioned below to use clientID, clientSecret etc, from Spotify.
